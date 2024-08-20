@@ -272,6 +272,7 @@
                     format='ddd, DD MMM YYYY'
                     range={true}
                     time={true}
+                    closeOnFocusLoss={false}
                     on:range-selected={e => {
                       console.log(e)
                       firedEvents = [
@@ -287,13 +288,14 @@
                     }}
                     let:selectedStart
                     let:selectedEnd
+                    forceClose={forcedClose}
                   >
                     <div style="border: 1px solid black; padding: 10px; border-radius: 4px;">
                       <p>{selectedStart}</p>
                       <p>{selectedEnd}</p>
                     </div>
                     <div slot="beforeContents">
-                      <h1>hell yeah!</h1>
+                      <h1>Before Contents Slot</h1>
                     </div>
                   </DatePicker>
                   </div>
@@ -304,6 +306,9 @@
                   <li>Pick date to see events</li>
                   {/each}
                   </ul>
+                  <div style="position: fixed; top: 0; right: 0;">
+                    <button on:click={forceClose}>click to force closed</button>
+                  </div>
                 </Route>
               </Route>
             </Route>
@@ -346,6 +351,13 @@
   let firedEvents = []
   let firedEventsValue = null
   let customSelected = null
+
+  let forcedClose = false
+  async function forceClose () {
+    forcedClose = true
+    await new Promise((resolve) => setTimeout(resolve, 100))
+    forcedClose = false
+  }
 </script>
 
 <style>

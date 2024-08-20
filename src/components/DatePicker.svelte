@@ -24,6 +24,7 @@
   export let night = 19
   export let minuteStep = 5
   export let continueText = 'Continue'
+  export let forceClose = false
 
   const dispatch = createEventDispatcher()
 
@@ -149,6 +150,15 @@
       selectedEnd = $selectedEndDate.toDate()
     } else {
       selectedEnd = null
+    }
+  }
+
+  /**
+   * Allow forceful closing from outside
+  */
+  $: {
+    if ($isOpen && forceClose) {
+      close()
     }
   }
 </script>
