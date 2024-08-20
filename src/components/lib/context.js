@@ -7,6 +7,27 @@ import { ensureFutureMonth } from './date-manipulation.js'
 
 const contextKey = {}
 
+async function setLoadingCursor () {
+  const loadingStyle = document.createElement('style')
+
+  loadingStyle.dataset.styleName = 'loading-style'
+
+  loadingStyle.innerHTML = '* { cursor: wait !important; }'
+
+  document.head.appendChild(loadingStyle)
+
+  await new Promise((resolve) => setTimeout(resolve, 20))
+}
+
+function clearLoadingCursor () {
+  const loadingStyles = document.querySelectorAll('[data-style-name="loading-style"]')
+  if (loadingStyles.length) {
+    setTimeout(() => {
+      loadingStyles.forEach(styletag => styletag.remove())
+    }, 20)
+  }
+}
+
 function setup (given, config) {
   const today = dayjs().startOf('day')
 
@@ -21,7 +42,7 @@ function setup (given, config) {
   ).startOf('month')
   const rightDate = config.isRangePicker ? ensureFutureMonth(leftDate, preSelectedEnd).startOf('month') : null
 
-  return {
+  const setupObj = {
     months: getMonths(config),
     component,
     today,
@@ -41,9 +62,15 @@ function setup (given, config) {
     },
     isSelectingFirstDate: writable(true)
   }
+
+  clearLoadingCursor()
+
+  return setupObj
 }
 
 export {
   contextKey,
-  setup
+  setup,
+  setLoadingCursor,
+  clearLoadingCursor
 }
