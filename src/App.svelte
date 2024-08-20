@@ -59,13 +59,13 @@
         <div class="row">
           <aside>
             <div class="menu-box">
-              <h4>Navigation</h4>	
+              <h4>Navigation</h4>
               <nav class="side-nav">
                 <ul>
                   <li><a href="/">Home</a></li>
                   <li><a href="/date-picker">Date Picker</a></li>
                   <li><a href="/range-picker">Range Picker</a></li>
-                </ul>					
+                </ul>
               </nav>
             </div>
           </aside>
@@ -273,6 +273,7 @@
                     range={true}
                     time={true}
                     on:range-selected={e => {
+                      console.log(e)
                       firedEvents = [
                         ...firedEvents,
                         `Picked range ${e.detail.from} to ${e.detail.to}`
@@ -314,7 +315,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-12 center">
-          
+
         </div>
       </div>
     </div>
