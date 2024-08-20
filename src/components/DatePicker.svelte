@@ -23,6 +23,9 @@
       let:selectedEnd
     >
       <slot {selectedStart} {selectedEnd} />
+      <div slot="beforeContents">
+       <slot name="beforeContents" {selectedStart} {selectedEnd} />
+      </div>
     </DatePickerInner>
   {:else}
     <DatePickerInner {...$$restProps}

@@ -226,6 +226,9 @@
         {/if}
       </slot>
     </div>
+    <div slot="beforeContents">
+      <slot name="beforeContents" {selectedStart} {selectedEnd} />
+    </div>
     <div class="contents" slot="contents" class:is-range-picker={config.isRangePicker}>
       <div class="view">
         <View

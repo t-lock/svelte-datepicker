@@ -285,7 +285,17 @@
                         'Change fired'
                       ]
                     }}
-                  />
+                    let:selectedStart
+                    let:selectedEnd
+                  >
+                    <div style="border: 1px solid black; padding: 10px; border-radius: 4px;">
+                      <p>{selectedStart}</p>
+                      <p>{selectedEnd}</p>
+                    </div>
+                    <div slot="beforeContents">
+                      <h1>hell yeah!</h1>
+                    </div>
+                  </DatePicker>
                   </div>
                   <ul>
                   {#each firedEvents as fired}

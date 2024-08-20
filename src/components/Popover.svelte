@@ -70,34 +70,35 @@
     <slot name="trigger">
     </slot>
   </div>
-  <div 
-    class="contents-wrapper" 
+  <div
+    class="contents-wrapper"
     class:visible={$isOpen}
     class:shrink={$isClosing}
     class:is-fullscreen={isFullscreen}
-    style="top: {translateY}px; left: {translateX}px" 
+    style="top: {translateY}px; left: {translateX}px"
     bind:this={contentsWrapper}>
     <div class="wrapper" bind:this={contentsAnimated}>
       <div class="contents-inner">
-        <slot name="contents"></slot>
+        <slot name="beforeContents" />
+        <slot name="contents" />
       </div>
     </div>
   </div>
 </div>
 
 <style>
-  .sc-popover { 
+  .sc-popover {
     position: relative;
   }
 
-  .contents-wrapper { 
+  .contents-wrapper {
     position: fixed;
     transition: none;
     z-index: 2;
     display: none;
   }
 
-  .contents-wrapper.visible { 
+  .contents-wrapper.visible {
     display: block;
   }
 
@@ -109,65 +110,65 @@
     overflow: scroll;
   }
 
-  .contents-wrapper.visible .wrapper { 
-    opacity: 1; 
+  .contents-wrapper.visible .wrapper {
+    opacity: 1;
     transform: scale(1);
     display: block;
   }
-  
-  .contents-wrapper.shrink .wrapper { 
+
+  .contents-wrapper.shrink .wrapper {
     animation: shrink 150ms forwards cubic-bezier(.92,.09,.18,1.05);
   }
 
-  .wrapper { 
+  .wrapper {
     background: #fff;
     box-shadow: 0px 10px 26px rgba(0,0,0,0.4) ;
-    opacity: .8; 
+    opacity: .8;
     padding-top: 0;
     display: none;
     animation: grow 200ms forwards cubic-bezier(.92,.09,.18,1.05);
   }
 
-  .contents-inner { 
+  .contents-inner {
     animation: fadeIn 400ms forwards;
   }
 
-  @keyframes grow { 
-    0% { 
-      transform: scale(.9,.1); 
-      opacity: 0; 
+  @keyframes grow {
+    0% {
+      transform: scale(.9,.1);
+      opacity: 0;
     }
-    30% { 
-      opacity: 1; 
+    30% {
+      opacity: 1;
     }
-    100% { 
+    100% {
       transform: scale(1);
     }
   }
 
-  @keyframes shrink { 
-    0% { 
-      transform: scale(1); 
-      opacity: 1; 
+  @keyframes shrink {
+    0% {
+      transform: scale(1);
+      opacity: 1;
     }
-    70% { 
-      opacity: 1; 
+    70% {
+      opacity: 1;
     }
-    100% { 
-      opacity: 0; 
+    100% {
+      opacity: 0;
       transform: scale(.9,.1);
     }
   }
 
-  @keyframes fadeIn { 
-    0% { 
-      opacity: 0; 
-    }
-    50% { 
+  @keyframes fadeIn {
+    0% {
       opacity: 0;
     }
-    100% { 
-      opacity: 1; 
+    50% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
     }
   }
 </style>
