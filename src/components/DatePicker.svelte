@@ -1,10 +1,10 @@
 <script>
-  import Popover from './Popover.svelte'
-  import { dayjs } from './lib/date-utils'
-  import { contextKey, setup } from './lib/context'
-  import { createEventDispatcher, setContext, getContext } from 'svelte'
+  import { createEventDispatcher, getContext, setContext } from 'svelte'
   import { CalendarStyle } from '../calendar-style.js'
+  import { contextKey, setup } from './lib/context'
+  import { dayjs } from './lib/date-utils'
   import { createViewContext } from './lib/view-context.js'
+  import Popover from './Popover.svelte'
   import Toolbar from './Toolbar.svelte'
   import View from './view/View.svelte'
 
@@ -122,7 +122,7 @@
    * and updating with JS Date objects
   */
   $: {
-    if (config.isRangePicker) {
+    if (config.isRangePicker && selected) {
       if (selected[0] instanceof Date) {
         selectedStartDate.set(dayjs(selected[0]))
       }
