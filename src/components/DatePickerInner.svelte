@@ -135,11 +135,21 @@
   /**
    * Allow external sources to react to internal selections via event forwarding
   */
+  let selectedStart = null
   $: {
-    if ($selectedStartDate) dispatch('updateStart', $selectedStartDate.toDate())
+    if ($selectedStartDate) {
+      selectedStart = $selectedStartDate.toDate()
+    } else {
+      selectedStart = null
+    }
   }
+  let selectedEnd = null
   $: {
-    if ($selectedEndDate) dispatch('updateEnd', $selectedEndDate.toDate())
+    if ($selectedEndDate) {
+      selectedEnd = $selectedEndDate.toDate()
+    } else {
+      selectedEnd = null
+    }
   }
 </script>
 
@@ -204,7 +214,7 @@
     on:opened={initialisePicker}
     on:closed={() => dispatch('close')}>
     <div slot="trigger">
-      <slot formatted={$formatter}>
+      <slot formatted={$formatter} {selectedStart} {selectedEnd}>
         {#if !trigger}
           <button class="calendar-button" type="button">
             {#if $isDateChosen}

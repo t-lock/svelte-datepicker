@@ -1,5 +1,5 @@
 <script>
-  import { createEventDispatcher, onMount } from 'svelte'
+  import { onMount } from 'svelte'
   import DatePickerInner from './DatePickerInner.svelte'
   import { setLoadingCursor } from './lib/context'
 
@@ -9,40 +9,28 @@
     await setLoadingCursor()
     ready = true
   })
-
-  /**
-   * ! WARNING
-   *
-   * The only events forwarded here are the ones we are currently using in
-   * Real Rev...
-   *
-   * Forwarding both Date and Date Range events bricked our build.
-  */
-  const dispatch = createEventDispatcher()
-  function forwardEvent (event) {
-    console.log('Forwarding event:', event.type)
-    dispatch(event.type, event.detail)
-  }
 </script>
 
 {#if ready}
   {#if $$slots.default}
     <DatePickerInner {...$$restProps}
-      on:range-selected={forwardEvent}
-      on:open={forwardEvent}
-      on:close={forwardEvent}
-      on:updateStart={forwardEvent}
-      on:updateEnd={forwardEvent}
+      on:open
+      on:range-selected
+      on:date-selected
+      on:change
+      on:close
+      let:selectedStart
+      let:selectedEnd
     >
-      <slot />
+      <slot {selectedStart} {selectedEnd} />
     </DatePickerInner>
   {:else}
     <DatePickerInner {...$$restProps}
-      on:range-selected={forwardEvent}
-      on:open={forwardEvent}
-      on:close={forwardEvent}
-      on:updateStart={forwardEvent}
-      on:updateEnd={forwardEvent}
+      on:open
+      on:range-selected
+      on:date-selected
+      on:change
+      on:close
     />
   {/if}
 {/if}
